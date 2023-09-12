@@ -1,5 +1,11 @@
-import Image from "next/image";
+import { getCurrentUser } from "@/lib/session";
 
-export default function Home() {
-  return <div className="m-12"></div>;
+export default async function Home() {
+  const user = await getCurrentUser();
+  return (
+    <div>
+      <h1>Home</h1>
+      {JSON.stringify(user)}
+    </div>
+  );
 }
