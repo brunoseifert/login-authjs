@@ -18,7 +18,7 @@ interface IUser {
 export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
   const [data, setData] = useState<IUser>({ email: "", password: "" });
 
-  const [isLoaging, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
@@ -48,8 +48,14 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
-              type="email"
               placeholder="name@example.com"
+              type="email"
+              autoCapitalize="none"
+              autoComplete="email"
+              autoCorrect="off"
+              disabled={isLoading}
+              name="email"
+              value={data.email}
               onChange={handleChange}
             />
           </div>
@@ -59,15 +65,18 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
             </Label>
             <Input
               id="password"
+              placeholder="senha"
               type="password"
-              placeholder="Senha"
+              autoCapitalize="none"
+              autoCorrect="off"
+              disabled={isLoading}
+              name="password"
+              value={data.password}
               onChange={handleChange}
-              autoComplete="current-password"
-              required
             />
           </div>
-          <Button disabled={isLoaging}>
-            {isLoaging && <Icons.spinner className="mr-2" />}
+          <Button disabled={isLoading}>
+            {isLoading && <Icons.spinner className="mr-2" />}
             Entrar
           </Button>
         </div>
