@@ -5,8 +5,10 @@ import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Icons } from "./icons";
-import { useToast } from "./ui/use-toast";
+import { Icons } from "@/components/icons";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+import { useRouter } from "next/navigation";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -17,6 +19,10 @@ interface IUser {
 }
 
 export function UserRegisterForm({ className, ...props }: UserAuthFormProps) {
+  const { toast } = useToast();
+
+  const router = useRouter();
+
   const [data, setData] = useState<IUser>({
     name: "",
     email: "",
@@ -42,7 +48,17 @@ export function UserRegisterForm({ className, ...props }: UserAuthFormProps) {
     console.log("USER REGISTER FORM", response);
 
     if (!request.ok) {
-      console.log("Error");
+      toast({
+        title: "Erro ao registrar",
+        description: response.error,
+        variant: "destructive",
+        action: (
+          <ToastAction altText="Tente novamente">Tente novamente</ToastAction>
+        ),
+      });
+    } else {
+      console.log(response);
+      router.push("/login");
     }
 
     setData({
