@@ -1,59 +1,48 @@
 import { Metadata } from "next";
-import Link from "next/link";
 
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
+import { Command } from "lucide-react";
 import { UserLoginForm } from "@/components/user-login-auth";
+import AuthButton from "@/components/auth-button";
 
 export const metadata: Metadata = {
-  title: "Authentication",
-  description: "Authentication forms built using the components.",
+  title: "Autenticação",
+  description:
+    "Autenticação utilizando Shadcs-ui Next-Auth (Authjs), prisma e Nextjs 13.4+",
 };
 
-export default function AuthenticationPage() {
+export default async function Register() {
   return (
-    <>
-      <div className=""></div>
-      <div className="flex flex-col h-[800px] items-center justify-center md:grid">
-        <Link
-          href="/examples/authentication"
-          className={cn(
-            buttonVariants({ variant: "ghost" }),
-            "absolute right-4 top-4 md:right-8 md:top-8"
-          )}
-        >
-          Login
-        </Link>
-
-        <div className="lg:p-8">
-          <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-            <div className="flex flex-col space-y-2 text-center">
-              <h1 className="text-2xl font-semibold tracking-tight">Entrar</h1>
-              <p className="text-sm text-muted-foreground">
-                Entre com os seus dados de login
-              </p>
-            </div>
-            <UserLoginForm />
-            <p className="px-8 text-center text-sm text-muted-foreground">
-              By clicking continue, you agree to our{" "}
-              <Link
-                href="/terms"
-                className="underline underline-offset-4 hover:text-primary"
-              >
-                Terms of Service
-              </Link>{" "}
-              and{" "}
-              <Link
-                href="/privacy"
-                className="underline underline-offset-4 hover:text-primary"
-              >
-                Privacy Policy
-              </Link>
-              .
+    <div className="py-48 md:py-0  h-[800px] flex-col items-center justify-center md:grid lg:px-0">
+      <AuthButton page="login" />
+      <div className="lg:p-8">
+        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+          <div className="flex flex-col space-y-2 text-center">
+            <h1 className="text-2xl font-semibold tracking-tight">Entrar</h1>
+            <p className="text-sm text-muted-foreground">
+              Entre com seus dados de Login
             </p>
           </div>
+          <UserLoginForm />
+          <p className="px-8 text-center text-sm text-muted-foreground">
+            By clicking continue, you agree to our{" "}
+            <Link
+              href="/terms"
+              className="underline underline-offset-4 hover:text-primary"
+            >
+              Termos de Serviço
+            </Link>{" "}
+            e{" "}
+            <Link
+              href="/privacy"
+              className="underline underline-offset-4 hover:text-primary"
+            >
+              Política de Privacidade
+            </Link>
+            .
+          </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }

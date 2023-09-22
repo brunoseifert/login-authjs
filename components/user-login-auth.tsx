@@ -7,6 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
 import { signIn } from "next-auth/react";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+import { useRouter } from "next/navigation";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -20,6 +23,10 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const { toast } = useToast();
+
+  const router = useRouter();
+
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
     setIsLoading(true);
@@ -28,6 +35,19 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
       ...data,
       redirect: false,
     });
+
+    if (res?.error) {
+      toast({
+        title: "Erro ao entrar",
+        description: res.error,
+        variant: "destructive",
+        action: (
+          <ToastAction altText="Tente novamente">Tente novamente</ToastAction>
+        ),
+      });
+    } else {
+      router.push("/");
+    }
 
     setData({ email: "", password: "" });
     setIsLoading(false);
@@ -81,6 +101,42 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
           </Button>
         </div>
       </form>
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">
+            Ou continue com
+          </span>
+        </div>
+      </div>
+      <Button
+        onClick={() => signIn("github", { callbackUrl: "/" })}
+        variant="outline"
+        type="button"
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+        ) : (
+          <Icons.google className="mr-2 h-4 w-4" />
+        )}{" "}
+        Google
+      </Button>
+      <Button
+        onClick={() => signIn("github", { callbackUrl: "/" })}
+        variant="outline"
+        type="button"
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+        ) : (
+          <Icons.apple className="mr-2 h-4 w-4" />
+        )}{" "}
+        ID Apple
+      </Button>
     </div>
   );
 }
