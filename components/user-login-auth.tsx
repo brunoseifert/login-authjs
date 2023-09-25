@@ -10,6 +10,7 @@ import { signIn } from "next-auth/react";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -101,6 +102,9 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
           </Button>
         </div>
       </form>
+      <h5 className="flex flex-row items-center justify-center gap-1 font-light">
+        Não tem uma conta?<Link href="/register"> Registre-se</Link>
+      </h5>
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
@@ -123,19 +127,6 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
           <Icons.google className="mr-2 h-4 w-4" />
         )}{" "}
         Google
-      </Button>
-      <Button
-        onClick={() => signIn("github", { callbackUrl: "/" })}
-        variant="outline"
-        type="button"
-        disabled={isLoading}
-      >
-        {isLoading ? (
-          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          <Icons.apple className="mr-2 h-4 w-4" />
-        )}{" "}
-        ID Apple
       </Button>
     </div>
   );
