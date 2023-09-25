@@ -47,6 +47,11 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
         ),
       });
     } else {
+      toast({
+        title: "Sucesso",
+        description: "Você entrou com sucesso",
+        action: <ToastAction altText="OK">OK</ToastAction>,
+      });
       router.push("/");
     }
 

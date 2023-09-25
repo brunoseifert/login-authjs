@@ -57,6 +57,10 @@ export function UserRegisterForm({ className, ...props }: UserAuthFormProps) {
         ),
       });
     } else {
+      toast({
+        title: "Registrado com sucesso",
+        description: "Use suas credenciais para entrar",
+      });
       console.log(response);
       router.push("/login");
     }
