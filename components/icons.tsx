@@ -24,10 +24,8 @@ import {
   Twitter,
   User,
   X,
-  type Icon as LucideIcon,
+  type XIcon as LucideIcon,
 } from "lucide-react";
-
-export type XIcon = LucideIcon;
 
 export const Icons = {
   logo: (props: LucideProps) => (
