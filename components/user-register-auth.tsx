@@ -76,7 +76,7 @@ export function UserRegisterForm({ className, ...props }: UserAuthFormProps) {
   };
 
   return (
-    <div className={cn("grid gap-6", className)} {...props}>
+    <div className={cn("grid gap-6 m-4", className)} {...props}>
       {/* {JSON.stringify(data)} */}
       <form onSubmit={onSubmit}>
         <div className="grid gap-2">
