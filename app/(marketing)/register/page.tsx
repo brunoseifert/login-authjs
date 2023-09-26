@@ -2,6 +2,7 @@ import { Metadata } from "next";
 
 import Link from "next/link";
 import { UserRegisterForm } from "@/components/user-register-auth";
+import AuthButton from "@/components/auth-button";
 
 export const metadata: Metadata = {
   title: "Autenticação",
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 export default async function Register() {
   return (
     <div className="py-48 md:py-0  h-[800px] flex-col items-center justify-center md:grid lg:px-0">
+      <AuthButton page="register" />
       <div className="lg:p-8">
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
           <div className="flex flex-col space-y-2 text-center">
